@@ -9,7 +9,7 @@
   "author": "Nordic Semiconductor ASA",
   "license": "ISC",
   "bin": {
-    "nrfconnect-scripts": "./bin/nrfconnect-scripts.js"
+    "nrfconnect-scripts": "./bin/nrf-fetch-artifact.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
