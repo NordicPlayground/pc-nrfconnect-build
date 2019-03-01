@@ -42,6 +42,7 @@ const pkgJson = require('../package.json');
 const mkdirp = require('mkdirp');
 
 if (!process.env.ENABLE_DRAFT_TEST) {
+    console.log('Draft test disabled.');
     process.exit(1);
 }
 
