@@ -1,0 +1,19 @@
+{
+  "name": "nrf-fetch-artifact",
+  "version": "0.0.1",
+  "description": "Fetch artifacts from GitHub",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NordicSemiconductor/nrf-fetch-artifact.git"
+  },
+  "author": "Nordic Semiconductor ASA",
+  "license": "ISC",
+  "bin": {
+    "nrfconnect-scripts": "./bin/nrfconnect-scripts.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "node-pre-gyp": "^0.12.0",
+    "tar": "^4.4.8"
+  }
+}
