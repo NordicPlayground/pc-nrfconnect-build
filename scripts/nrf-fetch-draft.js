@@ -38,7 +38,8 @@ const axios = require('axios');
 const tar = require('tar');
 const cp = require('child_process');
 const path = require('path');
-const pkgJson = require('../package.json');
+console.log(path.resolve(__dirname));
+const pkgJson = require('../../../package.json');
 const mkdirp = require('mkdirp');
 
 if (!process.env.ENABLE_DRAFT_TEST) {
@@ -53,6 +54,7 @@ if (!ghToken) {
     process.exit(1);
 }
 
+console.log(pkgJson);
 const destDir = path.resolve(__dirname, '..', pkgJson.binary.module_path, '..');
 
 const reveal = JSON.parse(cp.execSync('node-pre-gyp reveal'));
