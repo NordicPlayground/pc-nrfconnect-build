@@ -54,7 +54,7 @@ if (!ghToken) {
 }
 
 const destDir = path.resolve(__dirname, '..', pkgJson.binary.module_path, '..');
-const nodePreGypPath = path.resolve(__dirname, 'node_modules', '.bin', 'node-pre-gyp');
+const nodePreGypPath = path.resolve('node_modules', '.bin', 'node-pre-gyp');
 
 const reveal = JSON.parse(cp.execSync(nodePreGypPath, 'reveal'));
 console.log(reveal);
