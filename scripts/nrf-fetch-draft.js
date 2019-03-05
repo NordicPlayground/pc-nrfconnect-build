@@ -86,6 +86,7 @@ new Promise((resolve, reject) => {
     if (!asset) {
         throw new Error(`${packageName} is not available in the latest draft release`);
     }
+    console.log(asset);
     return asset;
 })
 .then(asset => `https://${ghToken}:@api.github.com/repos/${userOrOrg}/${name}/releases/assets/${asset.id}`)
