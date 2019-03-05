@@ -53,11 +53,12 @@ if (!ghToken) {
     process.exit(1);
 }
 
-const destDir = path.resolve(__dirname, '..', pkgJson.binary.module_path, '..');
+const destDir = path.resolve(__dirname, '..', '..', '..', pkgJson.binary.module_path, '..');
 const nodePreGypPath = path.resolve('node_modules', '.bin', 'node-pre-gyp');
 
 const reveal = JSON.parse(cp.execSync(`${nodePreGypPath} reveal`));
 console.log(reveal);
+
 const { name, package_name: packageName, module_name: moduleName, host } = reveal;
 const arr = host.split('/');
 const userOrOrg = arr[arr.indexOf(name) - 1];
