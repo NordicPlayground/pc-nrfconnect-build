@@ -58,7 +58,7 @@ const nodePreGypPath = path.resolve('node_modules', '.bin', 'node-pre-gyp');
 
 const reveal = JSON.parse(cp.execSync(`${nodePreGypPath} reveal`));
 console.log(reveal);
-const { name, package_name: packageName, host } = reveal;
+const { name, package_name: packageName, module_name: moduleName, host } = reveal;
 const arr = host.split('/');
 const userOrOrg = arr[arr.indexOf(name) - 1];
 
@@ -77,7 +77,12 @@ new Promise((resolve, reject) => {
         throw new Error('no draft release found');
     }
     const { assets } = draft;
-    const asset = assets.find(a => a.name === packageName);
+    let asset = assets.find(a => a.name === packageName);
+    if (!asset) {
+        asset = assets.find(a => a.name.includes(moduleName)
+            && a.name.includes(process.platform)
+            && a.name.includes(process.arch));
+    }
     if (!asset) {
         throw new Error(`${packageName} is not available in the latest draft release`);
     }
