@@ -58,15 +58,17 @@ console.log('Auto token: ', Buffer.from(editedToken).toString('base64'));
 
 const azureUrl = `${vstsUrl}${projectId}/_apis/distributedtask/hubs/${hubName}/plans/`
     + `${planId}/events?api-version=2.0-preview.1`;
-axios.post(azureUrl, {
-    headers: {
-        'Authorization': `Basic ${Buffer.from(editedToken).toString('base64')}`,
-        'Content-Type': 'application/json',
-    },
+const data = JSON.stringify({
     name: 'TaskCompleted',
     result: 'succeeded',
     jobId,
     taskId,
+});
+axios.post(azureUrl, data, {
+    headers: {
+        'Authorization': `Basic ${Buffer.from(editedToken).toString('base64')}`,
+        'Content-Type': 'application/json',
+    },
 })
 .then(console.log)
 .catch(console.log);
