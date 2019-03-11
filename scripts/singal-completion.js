@@ -63,12 +63,10 @@ axios.post(azureUrl, {
         'Authorization': `Basic ${Buffer.from(editedToken).toString('base64')}`,
         'Content-Type': 'application/json',
     },
-    data: {
-        name: 'TaskCompleted',
-        result: 'succeeded',
-        jobId,
-        taskId,
-    }
+    name: 'TaskCompleted',
+    result: 'succeeded',
+    jobId,
+    taskId,
 })
 .then(console.log)
 .catch(console.log);
