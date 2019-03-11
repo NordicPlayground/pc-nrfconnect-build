@@ -38,7 +38,7 @@ const axios = require('axios');
 
 const {
     VSTS_URL: vstsUrl,
-    PROJEDT_ID: projectId,
+    PROJECT_ID: projectId,
     HUB_NAME: hubName,
     PLAN_ID: planId,
     JOB_ID: jobId,
