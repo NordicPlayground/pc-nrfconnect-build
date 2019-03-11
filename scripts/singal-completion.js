@@ -45,6 +45,7 @@ const {
     TASK_ID: taskId,
     TOKEN: token,
 } = process.env;
+const editedToken = `:${token}`;
 
 console.log('Vsts URL:', vstsUrl);
 console.log('Project Id:', projectId);
@@ -53,13 +54,13 @@ console.log('Plan Id:', planId);
 console.log('Job Id:',jobId);
 console.log('Task Id:', taskId);
 console.log('Token:', token);
-console.log('Auto token: ', Buffer.from(token).toString('base64'));
+console.log('Auto token: ', Buffer.from(editedToken).toString('base64'));
 
 const azureUrl = `${vstsUrl}${projectId}/_apis/distributedtask/hubs/${hubName}/plans/`
     + `${planId}/events?api-version=2.0-preview.1`;
 axios.post(azureUrl, {
     headers: {
-        'Authorization': `Basic ${Buffer.from(token).toString('base64')}`,
+        'Authorization': `Basic ${Buffer.from(editedToken).toString('base64')}`,
         'Content-Type': 'application/json',
     },
     data: {
