@@ -46,7 +46,8 @@ const args = process.argv.slice(2);
 const script = args[0];
 
 const SCRIPTS = {
-    'fetch-draft': [require.resolve('../scripts/nrf-fetch-draft.js')],
+    'fetch-draft': [require.resolve('../scripts/fetch-draft.js')],
+    'signal-completion': [require.resolve('../scripts/singal-completion.js')],
 };
 
 const env = Object.assign({}, process.env, {
