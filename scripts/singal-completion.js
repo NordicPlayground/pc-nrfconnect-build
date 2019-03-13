@@ -70,6 +70,8 @@ axios.post(azureUrl, data, {
         'Content-Type': 'application/json',
     },
 })
-.then(console.log)
+.then({ status } => {
+    console.log(`Response status: ${status}`);
+})
 .catch(console.log);
 

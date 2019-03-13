@@ -4,7 +4,7 @@
   "description": "Build tools for nRF Connect projects",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NordicSemiconductor/pc-nrfconnect-build.git"
+    "url": "https://github.com/NordicPlayground/pc-nrfconnect-build.git"
   },
   "author": "Nordic Semiconductor ASA",
   "license": "ISC",
@@ -17,3 +17,4 @@
     "tar": "^4.4.8"
   }
 }
+

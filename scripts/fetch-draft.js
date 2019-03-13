@@ -42,6 +42,7 @@ const pkgJson = require('../../../package.json');
 const mkdirp = require('mkdirp');
 
 if (!process.env.ENABLE_DRAFT_TEST) {
+    console.log('missing env ENABLE_DRAFT_TEST=true');
     console.log('Draft test disabled.');
     process.exit(1);
 }
@@ -57,7 +58,6 @@ const destDir = path.resolve(__dirname, '..', '..', '..', pkgJson.binary.module_
 const nodePreGypPath = path.resolve('node_modules', '.bin', 'node-pre-gyp');
 
 const reveal = JSON.parse(cp.execSync(`${nodePreGypPath} reveal`));
-console.log(reveal);
 
 const { name, package_name: packageName, module_name: moduleName, host } = reveal;
 const arr = host.split('/');
@@ -87,7 +87,6 @@ new Promise((resolve, reject) => {
     if (!asset) {
         throw new Error(`${packageName} is not available in the latest draft release`);
     }
-    console.log(asset);
     return asset;
 })
 .then(asset => `https://${ghToken}:@api.github.com/repos/${userOrOrg}/${name}/releases/assets/${asset.id}`)
