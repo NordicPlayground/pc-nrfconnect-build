@@ -40,16 +40,10 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 
-if (!process.env.ENABLE_DRAFT_TEST) {
-    console.log('missing env ENABLE_DRAFT_TEST=true');
-    console.log('Draft test disabled.');
-    process.exit(1);
-}
-
-const ghToken = process.env.NODE_PRE_GYP_GITHUB_TOKEN;
+const ghToken = process.env.GITHUB_TOKEN;
 
 if (!ghToken) {
-    console.log('missing env NODE_PRE_GYP_GITHUB_TOKEN=<github_access_token>');
+    console.log('missing env GITHUB_TOKEN=<github_access_token>');
     process.exit(1);
 }
 
