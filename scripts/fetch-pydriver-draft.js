@@ -81,7 +81,9 @@ new Promise((resolve, reject) => {
     responseType: 'stream',
 }))
 .then(({ data }) => new Promise((resolve, reject) => {
-    fs.writeFile(path.resolve(destDir, fileName), data, err => err ? reject(err) : resolve());
+    data.pipe(fs.createWriteStream(path.resolve(destDir, fileName)))
+    .on('close', resolve)
+    .on('error', reject);
 }))
 .catch(err => {
     console.log(err.message);
