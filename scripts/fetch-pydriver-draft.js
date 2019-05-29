@@ -50,30 +50,30 @@ if (!ghToken) {
 const destDir = process.cwd();
 const [,, platform, pyVersion] = process.argv;
 
-const downloadAsset = asset => {
-    return new Promise(() => {
-        const assetUrl = `https://${ghToken}:@api.github.com/repos/NordicSemiconductor/pc-ble-driver-py/releases/assets/${asset.id}`;
-        axios
-            .get(assetUrl, {
-                headers: { Accept: 'application/octet-stream' },
-                responseType: 'stream',
-            })
-            .then(({ data }) => new Promise((resolve, reject) => {
-                data.pipe(fs.createWriteStream(path.resolve(destDir, asset.name)))
-                .on('close', resolve)
-                .on('error', reject);
-            }))
-            .catch(err => {
-                console.log(err.message);
-                process.exit(1);
-            });
+const downloadAsset = asset => new Promise(() => {
+    const assetUrl = `https://${ghToken}:@api.github.com/repos/NordicSemiconductor`
+        + `/pc-ble-driver-py/releases/assets/${asset.id}`;
+    axios.get(assetUrl, {
+        headers: { Accept: 'application/octet-stream' },
+        responseType: 'stream',
+    })
+    .then(({ data }) => new Promise((resolve, reject) => {
+        data.pipe(fs.createWriteStream(path.resolve(destDir, asset.name)))
+        .on('close', resolve)
+        .on('error', reject);
+    }))
+    .catch(err => {
+        console.log(err.message);
+        process.exit(1);
     });
-};
+});
+
 
 new Promise((resolve, reject) => {
     mkdirp(destDir, err => (err ? reject(err) : resolve()));
 })
-.then(() => axios.get(`https://api.github.com/repos/NordicSemiconductor/pc-ble-driver-py/releases`, {
+.then(() => axios.get(`https://api.github.com/repos/NordicSemiconductor`
+    +`/pc-ble-driver-py/releases`, {
     headers: {
         Accept: 'application/vnd.github.v3.raw',
         Authorization: `token ${ghToken}`,
