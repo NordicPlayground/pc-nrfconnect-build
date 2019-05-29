@@ -85,10 +85,9 @@ new Promise((resolve, reject) => {
         throw new Error('no draft release found');
     }
     const { assets } = draft;
-    console.log(platform);
-    const assetsToDownload = assets.filter(a => {
-        return (a.name.includes(platform) && a.name.includes(`-cp${pyVersion}-`));
-    });
+    const assetsToDownload = assets.filter(a =>
+        a.name.includes(platform) && a.name.includes(`-cp${pyVersion}-`)
+    );
 
     if (assetsToDownload.length === 0) {
         throw new Error(`Package is not available in the latest draft release`);
