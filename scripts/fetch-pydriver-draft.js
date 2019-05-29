@@ -50,7 +50,25 @@ if (!ghToken) {
 const destDir = process.cwd();
 const [,, platform, pyVersion] = process.argv;
 
-let fileName;
+const downloadAsset = asset => {
+    return new Promise(() => {
+        const assetUrl = `https://${ghToken}:@api.github.com/repos/NordicSemiconductor/pc-ble-driver-py/releases/assets/${asset.id}`;
+        axios
+            .get(assetUrl, {
+                headers: { Accept: 'application/octet-stream' },
+                responseType: 'stream',
+            })
+            .then(({ data }) => new Promise((resolve, reject) => {
+                data.pipe(fs.createWriteStream(path.resolve(destDir, asset.name)))
+                .on('close', resolve)
+                .on('error', reject);
+            }))
+            .catch(err => {
+                console.log(err.message);
+                process.exit(1);
+            });
+    });
+};
 
 new Promise((resolve, reject) => {
     mkdirp(destDir, err => (err ? reject(err) : resolve()));
@@ -67,24 +85,17 @@ new Promise((resolve, reject) => {
         throw new Error('no draft release found');
     }
     const { assets } = draft;
-    const asset = assets.find(a => a.name.includes(platform) && a.name.includes(`-cp${pyVersion}-`));
+    console.log(platform);
+    const assetsToDownload = assets.filter(a => {
+        return (a.name.includes(platform) && a.name.includes(`-cp${pyVersion}-`));
+    });
 
-    if (!asset) {
+    if (assetsToDownload.length === 0) {
         throw new Error(`Package is not available in the latest draft release`);
     }
-    fileName = asset.name;
-    return asset;
+
+    Promise.all(assetsToDownload.map(a => downloadAsset(a)));
 })
-.then(asset => `https://${ghToken}:@api.github.com/repos/NordicSemiconductor/pc-ble-driver-py/releases/assets/${asset.id}`)
-.then(assetUrl => axios.get(assetUrl, {
-    headers: { Accept: 'application/octet-stream' },
-    responseType: 'stream',
-}))
-.then(({ data }) => new Promise((resolve, reject) => {
-    data.pipe(fs.createWriteStream(path.resolve(destDir, fileName)))
-    .on('close', resolve)
-    .on('error', reject);
-}))
 .catch(err => {
     console.log(err.message);
     process.exit(1);
