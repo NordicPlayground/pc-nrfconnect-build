@@ -84,4 +84,7 @@ axios.post(azureUrl, JSON.stringify(data), {
 .then(({ status }) => {
     console.log(`Response status: ${status}`);
 })
-.catch(console.log);
+.catch(err => {
+    console.log(err);
+    process.exit(1);
+});
