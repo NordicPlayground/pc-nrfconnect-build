@@ -48,7 +48,7 @@ const extraArgs = args.slice(1);
 
 const SCRIPTS = {
     'fetch-draft': [require.resolve('../scripts/fetch-draft.js')],
-    'signal-completion': [require.resolve('../scripts/singal-completion.js').concat(extraArgs)],
+    'signal-completion': [require.resolve('../scripts/singal-completion.js')].concat(extraArgs),
 };
 
 const env = Object.assign({}, process.env, {
