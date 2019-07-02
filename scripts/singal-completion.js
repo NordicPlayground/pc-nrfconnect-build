@@ -56,15 +56,26 @@ console.log('Task Id:', taskId);
 console.log('Token:', token);
 console.log('Auto token: ', Buffer.from(editedToken).toString('base64'));
 
-const azureUrl = `${vstsUrl}${projectId}/_apis/distributedtask/hubs/${hubName}/plans/`
-    + `${planId}/events?api-version=2.0-preview.1`;
-const data = JSON.stringify({
+const data = {
     name: 'TaskCompleted',
     result: 'succeeded',
     jobId,
     taskId,
-});
-axios.post(azureUrl, data, {
+};
+const args = process.argv.slice(2);
+console.log(args);
+if (args[0] === '--succeeded') {
+    data.result = 'succeeded';
+} else if (args[0] === '--failed') {
+    data.result = 'failed';
+} else {
+    console.error('Please specify one of --succeeded or --failed');
+    process.exit(1);
+}
+
+const azureUrl = `${vstsUrl}${projectId}/_apis/distributedtask/hubs/${hubName}/plans/`
+    + `${planId}/events?api-version=2.0-preview.1`;
+axios.post(azureUrl, JSON.stringify(data), {
     headers: {
         'Authorization': `Basic ${Buffer.from(editedToken).toString('base64')}`,
         'Content-Type': 'application/json',
@@ -73,5 +84,7 @@ axios.post(azureUrl, data, {
 .then(({ status }) => {
     console.log(`Response status: ${status}`);
 })
-.catch(console.log);
-
+.catch(err => {
+    console.log(err);
+    process.exit(1);
+});

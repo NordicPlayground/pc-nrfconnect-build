@@ -44,10 +44,12 @@ const spawnSync = require('child_process').spawnSync;
 
 const args = process.argv.slice(2);
 const script = args[0];
+const extraArgs = args.slice(1);
 
 const SCRIPTS = {
-    'fetch-draft': [require.resolve('../scripts/fetch-draft.js')],
-    'signal-completion': [require.resolve('../scripts/singal-completion.js')],
+    'fetch-draft': [require.resolve('../scripts/fetch-draft.js')].concat(extraArgs),
+    'fetch-pydriver-draft': [require.resolve('../scripts/fetch-pydriver-draft.js')].concat(extraArgs),
+    'signal-completion': [require.resolve('../scripts/singal-completion.js')].concat(extraArgs),
 };
 
 const env = Object.assign({}, process.env, {
