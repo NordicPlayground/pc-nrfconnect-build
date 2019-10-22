@@ -48,6 +48,7 @@ const extraArgs = args.slice(1);
 
 const SCRIPTS = {
     'fetch-draft': [require.resolve('../scripts/fetch-draft.js')].concat(extraArgs),
+    'fetch-nrfutil-draft': [require.resolve('../scripts/fetch-nrfutil-draft.js')].concat(extraArgs),
     'fetch-pydriver-draft': [require.resolve('../scripts/fetch-pydriver-draft.js')].concat(extraArgs),
     'signal-completion': [require.resolve('../scripts/singal-completion.js')].concat(extraArgs),
 };
