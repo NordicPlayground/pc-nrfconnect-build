@@ -1,6 +1,6 @@
 {
   "name": "pc-nrfconnect-build",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Build tools for nRF Connect projects",
   "repository": {
     "type": "git",
