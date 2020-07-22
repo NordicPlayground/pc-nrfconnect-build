@@ -38,6 +38,7 @@ const axios = require('axios');
 const tar = require('tar');
 const cp = require('child_process');
 const path = require('path');
+const fs = require('fs');
 const pkgJson = require('../../../package.json');
 const mkdirp = require('mkdirp');
 
@@ -56,10 +57,10 @@ if (!ghToken) {
 
 const destDir = path.resolve(__dirname, '..', '..', '..', pkgJson.binary.module_path, '..');
 let nodePreGypExe = path.resolve(__dirname, '.bin', 'node-pre-gyp');
-if (!path.existsSync(nodePreGypExe)) {
+if (!fs.existsSync(nodePreGypExe)) {
     nodePreGypExe = path.resolve(__dirname, '..', '..', '.bin', 'node-pre-gyp');
 }
-if (!path.existsSync(nodePreGypExe)) {
+if (!fs.existsSync(nodePreGypExe)) {
     console.error('node-pre-gyp not found')
 }
 
