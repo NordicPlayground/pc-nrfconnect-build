@@ -55,7 +55,13 @@ if (!ghToken) {
 }
 
 const destDir = path.resolve(__dirname, '..', '..', '..', pkgJson.binary.module_path, '..');
-let nodePreGypExe = path.resolve(__dirname, '..', '..', '.bin', 'node-pre-gyp');
+let nodePreGypExe = path.resolve(__dirname, '.bin', 'node-pre-gyp');
+if (!path.execSync(nodePreGypExe)) {
+    nodePreGypExe = path.resolve(__dirname, '..', '..', '.bin', 'node-pre-gyp');
+}
+if (!path.execSync(nodePreGypExe)) {
+    console.error('node-pre-gyp not found')
+}
 
 const reveal = JSON.parse(cp.execSync(`${nodePreGypExe} reveal`));
 
